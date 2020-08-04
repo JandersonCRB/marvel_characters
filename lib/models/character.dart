@@ -95,6 +95,11 @@ class Weight {
     data['unity'] = this.unity;
     return data;
   }
+
+  @override
+  String toString() {
+    return '${value.toString()}$unity';
+  }
 }
 
 class Height {
@@ -113,6 +118,11 @@ class Height {
     data['value'] = this.value;
     data['unity'] = this.unity;
     return data;
+  }
+
+  @override
+  String toString() {
+    return '${value.toString()}$unity';
   }
 }
 

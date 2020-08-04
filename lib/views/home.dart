@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marvel_characters/components/custom_icons.dart';
 import 'package:marvel_characters/models/character.dart';
 import 'package:marvel_characters/models/characters_data.dart';
+import 'package:marvel_characters/views/character_details.dart';
 
 Color _backgroundColor = Color(0xFFF8F8F8);
 
@@ -284,46 +286,56 @@ class CharacterThumbnail extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () {
-          print("troque de tela");
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CharacterDetails(
+                character: this.character,
+              ),
+            ),
+          );
         },
-        child: Container(
-          width: 140,
-          decoration: BoxDecoration(
-            color: Colors.red,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage("assets" + character.imagePath),
+        child: Hero(
+          tag: "character-" + character.name,
+          child: Container(
+            width: 140,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets" + character.imagePath),
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
+              ),
             ),
-            borderRadius: BorderRadius.all(
-              Radius.circular(16),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 12,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  character.alterEgo,
-                  style: TextStyle(
-                      color: Color(0xBFFFFFFF),
-                      fontFamily: "Gilroy",
-                      fontSize: 10),
-                ),
-                Text(
-                  character.name,
-                  style: TextStyle(
-                    color: Color(0xFFFFFFFF),
-                    fontSize: 20,
-                    fontFamily: "Gilroy",
-                    fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 12,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    character.alterEgo,
+                    style: TextStyle(
+                        color: Color(0xBFFFFFFF),
+                        fontFamily: "Gilroy",
+                        fontSize: 10),
                   ),
-                ),
-              ],
+                  Text(
+                    character.name,
+                    style: TextStyle(
+                      color: Color(0xFFFFFFFF),
+                      fontSize: 20,
+                      fontFamily: "Gilroy",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
