@@ -16,77 +16,78 @@ class CharacterDetails extends StatelessWidget {
     final double imageBgHeight = MediaQuery.of(context).size.height * 1.25;
     return Scaffold(
       backgroundColor: Colors.black,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Color(0x96000000),
+        toolbarOpacity: 0.6,
+        elevation: 0,
+      ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            Stack(
-              children: [
-                Hero(
-                  tag: "character-" + character.name,
-                  child: CharacterBackground(
-                    height: imageBgHeight,
-                    imagePath: character.imagePath,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.60),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              character.alterEgo,
-                              style: TextStyle(
-                                color: Color(0xBFFFFFFF),
-                                fontFamily: "Gilroy",
-                                fontSize: 16,
-                              ),
-                            ),
-                            Container(
-                              width: 200,
-                              child: Text(
-                                character.name,
-                                style: TextStyle(
-                                  color: Color(0xFFFFFFFF),
-                                  fontSize: 40,
-                                  fontFamily: "Gilroy",
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
+            Hero(
+              tag: "character-" + character.name,
+              child: CharacterBackground(
+                height: imageBgHeight,
+                imagePath: character.imagePath,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.71),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          character.alterEgo,
+                          style: TextStyle(
+                            color: Color(0xBFFFFFFF),
+                            fontFamily: "Gilroy",
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      CaracteristicsRow(
-                        birthYear: int.parse(character.caracteristics.birth),
-                        weight: character.caracteristics.weight.toString(),
-                        height: character.caracteristics.height.toString(),
-                        universe: character.caracteristics.universe,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(24),
-                        child: Text(
-                          character.biography,
-                          style:
-                              TextStyle(color: Color(0xBFFFFFFF), fontSize: 14),
+                        Container(
+                          width: 200,
+                          child: Text(
+                            character.name,
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 40,
+                              fontFamily: "Gilroy",
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
-                      AbilitiesSection(
-                        abilities: character.abilities,
-                      ),
-                      MoviesSection(
-                        movieImages: character.movies,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            )
+                  CaracteristicsRow(
+                    birthYear: int.parse(character.caracteristics.birth),
+                    weight: character.caracteristics.weight.toString(),
+                    height: character.caracteristics.height.toString(),
+                    universe: character.caracteristics.universe,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(24),
+                    child: Text(
+                      character.biography,
+                      style: TextStyle(color: Color(0xBFFFFFFF), fontSize: 14),
+                    ),
+                  ),
+                  AbilitiesSection(
+                    abilities: character.abilities,
+                  ),
+                  MoviesSection(
+                    movieImages: character.movies,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
