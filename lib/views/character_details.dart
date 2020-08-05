@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_characters/components/character_background.dart';
 import 'package:marvel_characters/components/custom_icons.dart';
 import 'package:marvel_characters/models/character.dart';
 
@@ -22,34 +23,9 @@ class CharacterDetails extends StatelessWidget {
               children: [
                 Hero(
                   tag: "character-" + character.name,
-                  child: Container(
+                  child: CharacterBackground(
                     height: imageBgHeight,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage("assets" + character.imagePath),
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: imageBgHeight,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      stops: [
-                        0.05,
-                        0.95,
-                      ],
-                      colors: [
-                        Colors.black,
-                        Colors.transparent,
-                      ],
-                    ),
+                    imagePath: character.imagePath,
                   ),
                 ),
                 Padding(

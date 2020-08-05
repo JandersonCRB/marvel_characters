@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:marvel_characters/components/character_background.dart';
 import 'package:marvel_characters/components/custom_icons.dart';
 import 'package:marvel_characters/models/character.dart';
 import 'package:marvel_characters/models/characters_data.dart';
@@ -112,7 +113,6 @@ class HomeBody extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
               child: Text(
                 "Escolha o seu personagem",
-                key: humanKey,
                 style: TextStyle(
                     fontFamily: "Gilroy heavy",
                     color: Color(0xFF313140),
@@ -352,21 +352,20 @@ class CharacterThumbnail extends StatelessWidget {
             ),
           );
         },
-        child: Hero(
-          tag: "character-" + character.name,
-          child: Container(
-            width: 140,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage("assets" + character.imagePath),
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(16),
+        child: Stack(
+          children: [
+            Hero(
+              tag: "character-" + character.name,
+              child: CharacterBackground(
+                width: 140,
+                height: 300,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
+                imagePath: character.imagePath,
               ),
             ),
-            child: Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 12,
                 vertical: 12,
@@ -378,23 +377,27 @@ class CharacterThumbnail extends StatelessWidget {
                   Text(
                     character.alterEgo,
                     style: TextStyle(
-                        color: Color(0xBFFFFFFF),
-                        fontFamily: "Gilroy",
-                        fontSize: 10),
-                  ),
-                  Text(
-                    character.name,
-                    style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 20,
+                      color: Color(0xBFFFFFFF),
                       fontFamily: "Gilroy",
-                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    child: Text(
+                      character.name,
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontSize: 20,
+                        fontFamily: "Gilroy",
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
