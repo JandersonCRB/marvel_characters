@@ -10,7 +10,7 @@ class CharacterBackground extends StatelessWidget {
     Key key,
     @required this.imagePath,
     @required this.height,
-    @required this.width,
+    this.width,
     this.borderRadius,
   })  : assert(imagePath != null),
         super(key: key);
