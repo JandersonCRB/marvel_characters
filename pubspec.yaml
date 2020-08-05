@@ -44,6 +44,7 @@ flutter:
   assets:
      - assets/images/app_bar_logo.png
      - assets/chars/
+     - assets/movies/
      - assets/json/application.json
 
   fonts:

@@ -103,6 +103,9 @@ class CharacterDetails extends StatelessWidget {
                       AbilitiesSection(
                         abilities: character.abilities,
                       ),
+                      MoviesSection(
+                        movieImages: character.movies,
+                      ),
                     ],
                   ),
                 ),
@@ -250,6 +253,66 @@ class AbilitiesSection extends StatelessWidget {
           buildAbilityRow(context, "Velocidade", abilities.velocity),
         ],
       ),
+    );
+  }
+}
+
+class MoviesSection extends StatelessWidget {
+  final List<String> movieImages;
+
+  const MoviesSection({
+    Key key,
+    @required this.movieImages,
+  })  : assert(movieImages != null),
+        assert(movieImages.length > 0),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    print(movieImages);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+          child: Text(
+            "Filmes",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Gilroy",
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+        ),
+        Container(
+          height: 230,
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 17),
+            scrollDirection: Axis.horizontal,
+            children: movieImages
+                .map(
+                  (mi) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets" + mi),
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(16),
+                        ),
+                      ),
+                      width: 150,
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+      ],
     );
   }
 }
