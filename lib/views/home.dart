@@ -77,11 +77,19 @@ class MyAppBar extends StatelessWidget {
 class HomeBody extends StatelessWidget {
   final CharacterData data;
 
-  const HomeBody({Key key, @required this.data}) : super(key: key);
+  final scrollController = ScrollController();
+  final heroKey = GlobalKey();
+  final villainKey = GlobalKey();
+  final antiHeroKey = GlobalKey();
+  final alienKey = GlobalKey();
+  final humanKey = GlobalKey();
+
+  HomeBody({Key key, @required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      controller: scrollController,
       child: Container(
         color: _backgroundColor,
         child: Column(
@@ -104,6 +112,7 @@ class HomeBody extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
               child: Text(
                 "Escolha o seu personagem",
+                key: humanKey,
                 style: TextStyle(
                     fontFamily: "Gilroy heavy",
                     color: Color(0xFF313140),
@@ -111,11 +120,19 @@ class HomeBody extends StatelessWidget {
                     fontSize: 32),
               ),
             ),
-            ShortcutsRow(),
+            ShortcutsRow(
+              scrollController: scrollController,
+              humanKey: humanKey,
+              villainKey: villainKey,
+              antiHeroKey: antiHeroKey,
+              heroKey: heroKey,
+              alienKey: alienKey,
+            ),
             Container(
               height: 48,
             ),
             CharactersDisplay(
+              rootKey: heroKey,
               title: "Heróis",
               characters: data.heroes,
             ),
@@ -123,6 +140,7 @@ class HomeBody extends StatelessWidget {
               height: 48,
             ),
             CharactersDisplay(
+              rootKey: villainKey,
               title: "Vilões",
               characters: data.villains,
             ),
@@ -130,6 +148,7 @@ class HomeBody extends StatelessWidget {
               height: 48,
             ),
             CharactersDisplay(
+              rootKey: antiHeroKey,
               title: "Anti heróis",
               characters: data.antiHeroes,
             ),
@@ -137,6 +156,7 @@ class HomeBody extends StatelessWidget {
               height: 48,
             ),
             CharactersDisplay(
+              rootKey: alienKey,
               title: "Alienígenas",
               characters: data.aliens,
             ),
@@ -144,6 +164,7 @@ class HomeBody extends StatelessWidget {
               height: 48,
             ),
             CharactersDisplay(
+              rootKey: humanKey,
               title: "Humanos",
               characters: data.humans,
             ),
@@ -155,15 +176,44 @@ class HomeBody extends StatelessWidget {
 }
 
 class ShortcutsRow extends StatelessWidget {
+  final ScrollController scrollController;
+  final Key heroKey;
+  final Key villainKey;
+  final Key antiHeroKey;
+  final Key alienKey;
+  final Key humanKey;
+
+  const ShortcutsRow({
+    Key key,
+    @required this.scrollController,
+    @required this.humanKey,
+    @required this.heroKey,
+    @required this.villainKey,
+    @required this.antiHeroKey,
+    @required this.alienKey,
+  })  : assert(humanKey != null),
+        assert(heroKey != null),
+        assert(villainKey != null),
+        assert(alienKey != null),
+        assert(antiHeroKey != null),
+        assert(scrollController != null),
+        super(key: key);
+
+  scrollTo(GlobalKey key) {
+    scrollController.position.ensureVisible(
+      key.currentContext.findRenderObject(),
+      duration: Duration(milliseconds: 1300),
+    );
+  }
+
   Widget buildIcon(
     IconData icon,
     Color firstColor,
     Color secondColor,
+    Function onTap,
   ) {
     return InkWell(
-      onTap: () {
-        print("pressed");
-      },
+      onTap: onTap,
       child: Container(
         width: 56,
         height: 56,
@@ -194,26 +244,31 @@ class ShortcutsRow extends StatelessWidget {
             CustomIcons.hero,
             Color(0xFF005BEA),
             Color(0xFF00C6FB),
+            () => scrollTo(heroKey),
           ),
           buildIcon(
             CustomIcons.villain,
             Color(0xFFED1D24),
             Color(0xFFED1F69),
+            () => scrollTo(villainKey),
           ),
           buildIcon(
             CustomIcons.antihero,
             Color(0xFFB224EF),
             Color(0xFF7579FF),
+            () => scrollTo(antiHeroKey),
           ),
           buildIcon(
             CustomIcons.alien,
             Color(0xFF0BA360),
             Color(0xFF3CBA92),
+            () => scrollTo(alienKey),
           ),
           buildIcon(
             CustomIcons.human,
             Color(0xFFFF7EB3),
             Color(0xFFFF758C),
+            () => scrollTo(humanKey),
           ),
         ],
       ),
@@ -224,13 +279,15 @@ class ShortcutsRow extends StatelessWidget {
 class CharactersDisplay extends StatelessWidget {
   final String title;
   final List<Character> characters;
+  final Key rootKey;
 
-  const CharactersDisplay({Key key, this.title, this.characters})
+  const CharactersDisplay({Key key, this.rootKey, this.title, this.characters})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: rootKey,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
