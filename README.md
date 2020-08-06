@@ -1,16 +1,11 @@
-# marvel_characters
+# Personagens marvel
 
-A new Flutter application.
+Aplicação desenvolvida em live com intuito de treinar e ensinar o desenvolvimento de layouts com flutter
 
-## Getting Started
+Parte 1: <https://www.twitch.tv/videos/697554346>
+Parte 2: <https://www.twitch.tv/videos/699447977>
+Parte 3: <https://www.twitch.tv/videos/701467333>
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Print 1](prints/print1.png?raw=true)
+![Print 2](prints/print2.png?raw=true)
+![Print 3](prints/print3.png?raw=true)
